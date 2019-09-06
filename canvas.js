@@ -1,10 +1,10 @@
-var canvas=document.createElement("canvas");
+var canva=document.createElement("canvas");
 var cvw=1024,cvh=512;
-canvas.width=cvw;
-canvas.height=cvh;
-canvas.setAttribute("style","background:#333;");
-document.body.appendChild(canvas);
-var ctx=canvas.getContext("2d");
+canva.width=cvw;
+canva.height=cvh;
+canva.setAttribute("style","background:#3cf;margin:auto;");
+document.body.appendChild(canva);
+var ctx=canva.getContext("2d");
 ctx.fillStyle="#66CCFF";
 ctx.strokeStyle="#EE0000";
 var clearcv=function(){ctx.clearRect(0,0,cvw,cvh);}
