@@ -1,47 +1,57 @@
-var nowdown={mouse:0,KeyS:0};
-function clearcnt(){
-	for(var i1 in nowdown){
-		nowdown[i1]=0;
+var keylist={mouse:0,KeyC:0,KeyX:0,KeyR:0,KeyP:0,KeyN:0,KeyB:0};
+var downqueue=[];
+function clearkey(){
+	for(var i1 in keylist){
+		keylist[i1]=0;
 	}
+	downqueue=[];
 	return;
 }
 function handledown(x){
-	if(nowdown[x]===undefined)return;
-	console.log(x);
-	nowdown[x]=1;
+	if(keylist[x]===undefined)return;
+	// console.log(x);
+	keylist[x]=1;
+	downqueue.push(x);
 }
 function handleup(x){
-	if(nowdown[x]===undefined)return;
-	console.log(x);
-	nowdown[x]=0;
+	if(keylist[x]===undefined)return;
+	// console.log(x);
+	keylist[x]=0;
 }
+function keydownlisten(e){
+	// console.log(e.code);
+	handledown(e.code);
+}
+function keyuplisten(e){
+	// console.log(e);
+	handleup(e.code);
+}
+document.addEventListener("keydown",keydownlisten);
+document.addEventListener("keyup",keyuplisten);
 function msdownlisten(e){
-	console.log(e);
+	// console.log(e);
 	if(e.button===0)handledown("mouse");
 }
 function msuplisten(e){
-	console.log(e);
+	// console.log(e);
 	if(e.button===0)handleup("mouse");
 }
 document.addEventListener("mousedown",msdownlisten);
 document.addEventListener("mouseup",msuplisten);
-function keydownlisten(e){
-	console.log(e);
-	handledown(e.Code);
+var msx=0,msy=0,msmoved=false;
+function msmovelisten(e){
+	msx=e.layerX-canva.offsetLeft;
+	msy=canva.offsetTop+cvh-e.layerY;
+	msmoved=true;
 }
-function keyuplisten(e){
-	console.log(e);
-	handleup(e.Code);
-}
-document.addEventListener("keydown",keydownlisten);
-document.addEventListener("keyup",keyuplisten);
+document.addEventListener("mousemove",msmovelisten);
 
 //dom
 var titlediv=document.getElementById("title");
 var levelsdiv=document.getElementById("levels");
 var instr='<div style="font-size:64px;">Levels</div>';
 for(var i=1;i<=8;++i){
-	instr+='<div id="levdiv'+i+'" style="margin:40px 100px;cursor:pointer;background:#233;display:inline-block;" onclick="alert('+i+');">'+i+'</div>';
+	instr+='<div id="levdiv'+i+'" style="margin:40px 100px;cursor:pointer;background:#233;display:inline-block;" onclick="playlevel'+i+'();">'+i+'</div>';
 }
 levelsdiv.innerHTML=instr;
 
@@ -49,18 +59,22 @@ function showcanvas(){
 	canva.style.display=null;
 	levelsdiv.style.display="none";
 	titlediv.style.display="none";
+	pausediv.style.display="none";
 }
 function showlevels(){
 	canva.style.display="none";
 	levelsdiv.style.display="inline-block";
 	titlediv.style.display="none";
+	pausediv.style.display="none";
 }
 function showtitle(){
 	canva.style.display="none";
 	levelsdiv.style.display="none";
 	titlediv.style.display=null;
+	pausediv.style.display="none";
 }
 showtitle();
-function gotolevels(){
+function startclick(){
 	showlevels();
 }
+// playlevel1();

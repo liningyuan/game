@@ -56,7 +56,7 @@ function testEdgeCircCollide(x,y,a,b,co,si,x1){
 	return true;
 }
 function testRectCircCollide(x0,x1){
-	if((x0.x-x1.x)**2+(x0.y-x1.y)**2<(x0.a+x0.b+x1.r)**2)return false;//prune
+	if((x0.x-x1.x)**2+(x0.y-x1.y)**2>(x0.a+x0.b+x1.r)**2)return false;//prune
 	var co=Math.cos(x0.ang),si=Math.sin(x0.ang);
 	if(testCornerCircCollide(x0.x,x0.y,x0.a,x0.b,co,si,x1))return true;
 	if(testCornerCircCollide(x0.x,x0.y,-x0.a,x0.b,co,si,x1))return true;
@@ -68,7 +68,7 @@ function testRectCircCollide(x0,x1){
 	(testEdgeCircCollide(x0.x,x0.y,x0.b,x0.a,si,-co,x1));
 }
 function reflectvec(co,si,v1){
-	console.info(co,si,v1);
+	// console.info(co,si,v1);
 	var i1=2*(v1.x*co+v1.y*si);
 	return {x:v1.x-i1*co,y:v1.y-i1*si};
 }
@@ -76,7 +76,7 @@ function workRectCircCollide(x0,x1){
 	if((x0.x-x1.x)**2+(x0.y-x1.y)**2>(x0.a+x0.b+x1.r)**2)return false;//prune
 	var co=Math.cos(x0.ang),si=Math.sin(x0.ang);
 	var a=x0.a,b=x0.b;
-	console.log(co,si);
+	// console.log(co,si);
 	if(testCornerCircCollide(x0.x,x0.y,a,b,co,si,x1)){
 		let res=circlecollide({x:0,y:0},x0.x+a*co-b*si,x0.y+a*si+b*co,20190817,x1.v,x1.x,x1.y,1);
 		x1.v=res.v2;

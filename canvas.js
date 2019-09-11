@@ -2,7 +2,7 @@ var canva=document.createElement("canvas");
 var cvw=1024,cvh=512;
 canva.width=cvw;
 canva.height=cvh;
-canva.setAttribute("style","background:#3cf;margin:auto;");
+canva.setAttribute("style","background:#FFFFFF;margin:auto;");
 document.body.appendChild(canva);
 var ctx=canva.getContext("2d");
 ctx.fillStyle="#66CCFF";
@@ -17,8 +17,8 @@ var drawline=function(x1,y1,x2,y2){
 }
 var drawcircle=function(x,y,r,fi=false,st=true,begin=0,end=2*Math.PI){
 	ctx.beginPath();
-	ctx.arc(x,cvh-y,r,begin,end);
-	ctx.closePath();
+	ctx.arc(x,cvh-y,r,-end,-begin);
+	// ctx.closePath();
 	if(fi)ctx.fill();
 	if(st)ctx.stroke();
 	return;
