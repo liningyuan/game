@@ -2,11 +2,11 @@ var canva=document.createElement("canvas");
 var cvw=1024,cvh=512;
 canva.width=cvw;
 canva.height=cvh;
-canva.setAttribute("style","background:#FFFFFF;margin:auto;");
-document.body.appendChild(canva);
+canva.setAttribute("style","display:none;background:#FFFFFF;margin:auto;");
 var ctx=canva.getContext("2d");
 ctx.fillStyle="#66CCFF";
 ctx.strokeStyle="#EE0000";
+document.body.appendChild(canva);
 var clearcv=function(){ctx.clearRect(0,0,cvw,cvh);}
 //leftbottom(0,0)
 var drawline=function(x1,y1,x2,y2){
