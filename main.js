@@ -40,8 +40,8 @@ document.addEventListener("mousedown",msdownlisten);
 document.addEventListener("mouseup",msuplisten);
 var msx=0,msy=0,msmoved=false;
 function msmovelisten(e){
-	msx=e.layerX-canva.offsetLeft;
-	msy=canva.offsetTop+cvh-e.layerY;
+	msx=e.pageX-canva.offsetLeft;
+	msy=canva.offsetTop+cvh-e.pageY;
 	msmoved=true;
 }
 document.addEventListener("mousemove",msmovelisten);
@@ -50,8 +50,8 @@ document.addEventListener("mousemove",msmovelisten);
 var titlediv=document.getElementById("title");
 var levelsdiv=document.getElementById("levels");
 var instr='<div style="font-size:64px;">Levels</div>';
-for(var i=1;i<=8;++i){
-	instr+='<div id="levdiv'+i+'" style="margin:40px 100px;cursor:pointer;background:#233;display:inline-block;" onclick="playlevel'+i+'();">'+i+'</div>';
+for(var i=1;i<=5;++i){
+	instr+='<div id="levdiv'+i+'" style="margin:60px 80px;cursor:pointer;display:inline-block;" onclick="playlevel'+i+'();">'+i+'</div>';
 }
 levelsdiv.innerHTML=instr;
 
@@ -78,4 +78,4 @@ function startclick(){
 	showlevels();
 }
 // playlevel1();
-playlevel3();
+// playlevel3();
