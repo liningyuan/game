@@ -1090,7 +1090,7 @@ function playlevel5(){
 	}
 	function bossdamage(x0){
 		boss.health-=x0;
-		if(boss.health<=0)stop("\nCongratulations!You beat the last level.Happy Mid-Autumn Festival!\n\nR to play again.\nB to select a level.");
+		if(boss.health<=0)stop("\nCongratulations!You beat the last level.\nHappy Mid-Autumn Festival!\n\nR to play again.\nB to select a level.");
 	}
 	function judgeshield(x0){
 		var i1=guiyi(x0.x-me.x,x0.y-me.y),i2=-Math.cos(me.ang),i3=-Math.sin(me.ang);
