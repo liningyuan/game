@@ -652,7 +652,7 @@ function playlevel3(){
 		boss.cd-=0.05;
 		if(boss.cd<=0){
 			let aimvec=turbulence(guiyi(me.x-boss.x,me.y-boss.y));
-			bullets.push(newbullet(boss.x,boss.y,aimvec.x*1.5,aimvec.y*1.5,2,5,1));
+			bullets.push(newbullet(boss.x,boss.y,aimvec.x*1.5,aimvec.y*1.5,4,5,1));//613
 			if(boss.health<=thre){
 				// for(var foo=0;foo<5;++foo){
 				// 	let bar=Math.random()*2*Math.PI;
