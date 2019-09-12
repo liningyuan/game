@@ -78,3 +78,4 @@ function startclick(){
 	showlevels();
 }
 // playlevel1();
+playlevel3();
