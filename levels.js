@@ -17,6 +17,23 @@ function getclick(){
 	for(i2=downqueue.length;i2>0;--i2)res[downqueue.pop()]=1;
 	return res;
 }
+var audioctx=new AudioContext();
+function playsound(freq0,freq1,time0){
+	var osc=audioctx.createOscillator();
+	var gain=audioctx.createGain();
+	osc.connect(gain);
+	gain.connect(audioctx.destination);
+	osc.frequency.setValueAtTime(freq0,audioctx.currentTime);
+	osc.frequency.linearRampToValueAtTime(freq1,audioctx.currentTime+time0);
+	osc.type='sine';
+	osc.start();
+	gain.gain.setValueAtTime(1,audioctx.currentTime);
+	gain.gain.linearRampToValueAtTime(0,time0+audioctx.currentTime);
+	setTimeout(function(){osc.stop();osc.disconnect();gain.disconnect();},time0*1234);
+	return;
+}
+// playsound(440,880,0.1);
+
 function playlevel1(){
 	showcanvas();
 	var gameid=Math.random();
@@ -103,19 +120,27 @@ function playlevel1(){
 	}
 	function medamage(x0){
 		me.health-=x0;
-		if(me.health<=0)stop("\nLevel failed.\n\nR to try again.\nN to skip to next level.\nB to select a level.");
+		if(me.health<=0){
+			playsound(440,0,1);
+			stop("\nLevel failed.\n\nR to try again.\nN to skip to next level.\nB to select a level.");
+		}
 	}
 	function bossdamage(x0){
 		boss.health-=x0;
-		if(boss.health<=0)stop("\nLevel completed!\n\nR to play again.\nN to start next level.\nB to select a level.");
+		if(boss.health<=0){
+			playsound(880,880,1);
+			stop("\nLevel completed!\n\nR to play again.\nN to start next level.\nB to select a level.");
+		}
 	}
 	function judgeshield(x0){
 		var i1=guiyi(x0.x-me.x,x0.y-me.y),i2=-Math.cos(me.ang),i3=-Math.sin(me.ang);
 		if(i1.x*i2+i1.y*i3>=Math.cos(Math.PI*(0.0625*me.shield))){
 			me.shield=(me.shield>2?me.shield-1:1);
+			playsound(440,880,0.2);
 			return true;
 		}else{
 			medamage(1);
+			playsound(880,660,0.2);
 			return false;
 		}
 	}
@@ -175,6 +200,7 @@ function playlevel1(){
 			if(clklist["KeyC"]){
 				bullets.push(newbullet(me.x,me.y,3*Math.cos(me.ang),3*Math.sin(me.ang),4,6,0));
 				me.cd=1;
+				playsound(660,880,0.1);
 			}
 		}
 		boss.cd-=0.03;
@@ -330,19 +356,27 @@ function playlevel2(){
 	}
 	function medamage(x0){
 		me.health-=x0;
-		if(me.health<=0)stop("\nLevel failed.\n\nR to try again.\nN to skip to next level.\nB to select a level.");
+		if(me.health<=0){
+			playsound(440,0,1);
+			stop("\nLevel failed.\n\nR to try again.\nN to skip to next level.\nB to select a level.");
+		}
 	}
 	function bossdamage(x0){
 		boss.health-=x0;
-		if(boss.health<=0)stop("\nLevel completed!\n\nR to play again.\nN to start next level.\nB to select a level.");
+		if(boss.health<=0){
+			playsound(880,880,1);
+			stop("\nLevel completed!\n\nR to play again.\nN to start next level.\nB to select a level.");
+		}
 	}
 	function judgeshield(x0){
 		var i1=guiyi(x0.x-me.x,x0.y-me.y),i2=-Math.cos(me.ang),i3=-Math.sin(me.ang);
 		if(i1.x*i2+i1.y*i3>=Math.cos(Math.PI*(0.0625*me.shield))){
 			me.shield=(me.shield>2?me.shield-1:1);
+			playsound(440,880,0.2);
 			return true;
 		}else{
 			medamage(1);
+			playsound(880,660,0.2);
 			return false;
 		}
 	}
@@ -402,6 +436,7 @@ function playlevel2(){
 			if(clklist["KeyC"]){
 				bullets.push(newbullet(me.x,me.y,3*Math.cos(me.ang),3*Math.sin(me.ang),4,6,0));
 				me.cd=1;
+				playsound(660,880,0.1);
 			}
 		}
 		boss.cd-=0.025;
@@ -575,19 +610,27 @@ function playlevel3(){
 	}
 	function medamage(x0){
 		me.health-=x0;
-		if(me.health<=0)stop("\nLevel failed.\n\nR to try again.\nN to skip to next level.\nB to select a level.");
+		if(me.health<=0){
+			playsound(440,0,1);
+			stop("\nLevel failed.\n\nR to try again.\nN to skip to next level.\nB to select a level.");
+		}
 	}
 	function bossdamage(x0){
 		boss.health-=x0;
-		if(boss.health<=0)stop("\nLevel completed!\n\nR to play again.\nN to start next level.\nB to select a level.");
+		if(boss.health<=0){
+			playsound(880,880,1);
+			stop("\nLevel completed!\n\nR to play again.\nN to start next level.\nB to select a level.");
+		}
 	}
 	function judgeshield(x0){
 		var i1=guiyi(x0.x-me.x,x0.y-me.y),i2=-Math.cos(me.ang),i3=-Math.sin(me.ang);
 		if(i1.x*i2+i1.y*i3>=Math.cos(Math.PI*(0.0625*me.shield))){
 			me.shield=(me.shield>2?me.shield-1:1);
+			playsound(440,880,0.2);
 			return true;
 		}else{
 			medamage(1);
+			playsound(880,660,0.2);
 			return false;
 		}
 	}
@@ -647,6 +690,7 @@ function playlevel3(){
 			if(clklist["KeyC"]){
 				bullets.push(newbullet(me.x,me.y,3*Math.cos(me.ang),3*Math.sin(me.ang),4,6,0));
 				me.cd=1;
+				playsound(660,880,0.1);
 			}
 		}
 		boss.cd-=0.05;
@@ -664,6 +708,7 @@ function playlevel3(){
 		if(boss.health<=thre){
 			boss.cd2-=0.005;
 			if(boss.cd2<=0){
+				playsound(1320,440,0.3);
 				for(var foo=bullets.length-1;foo>=0;--foo){
 					if(bullets[foo].id!=1)continue;
 					let bar=bullets[foo].v;
@@ -803,6 +848,7 @@ function playlevel4(){
 		i2.id=this.id+1;
 		i2.r=this.r-10;
 		boss.push(i2);
+		playsound(1320,440,0.3);
 	}
 	bossdisplay.call(boss[0]);
 	var bullets=[];
@@ -838,7 +884,10 @@ function playlevel4(){
 	}
 	function medamage(x0){
 		me.health-=x0;
-		if(me.health<=0)stop("\nLevel failed.\n\nR to try again.\nN to skip to next level.\nB to select a level.");
+		if(me.health<=0){
+			playsound(440,0,1);
+			stop("\nLevel failed.\n\nR to try again.\nN to skip to next level.\nB to select a level.");
+		}
 	}
 	// function bossdamage(x0){
 	// 	boss.health-=x0;
@@ -848,9 +897,11 @@ function playlevel4(){
 		var i1=guiyi(x0.x-me.x,x0.y-me.y),i2=-Math.cos(me.ang),i3=-Math.sin(me.ang);
 		if(i1.x*i2+i1.y*i3>=Math.cos(Math.PI*(0.0625*me.shield))){
 			me.shield=(me.shield>2?me.shield-1:1);
+			playsound(440,880,0.2);
 			return true;
 		}else{
 			medamage(1);
+			playsound(880,660,0.2);
 			return false;
 		}
 	}
@@ -911,6 +962,7 @@ function playlevel4(){
 			if(clklist["KeyC"]){
 				bullets.push(newbullet(me.x,me.y,3*Math.cos(me.ang),3*Math.sin(me.ang),4,6,0));
 				me.cd=1;
+				playsound(660,880,0.1);
 			}
 		}
 		for(i1=boss.length-1;i1>=0;--i1){
@@ -975,7 +1027,10 @@ function playlevel4(){
 				--boss.length;
 			}
 		}
-		if(boss.length<=0)stop("\nLevel completed!\n\nR to play again.\nN to start next level.\nB to select a level.");
+		if(boss.length<=0){
+			playsound(880,880,1);
+			stop("\nLevel completed!\n\nR to play again.\nN to start next level.\nB to select a level.");
+		}
 		for(i1=boss.length-1;i1>=0;--i1){
 			bossdisplay.call(boss[i1]);
 		}
@@ -1086,19 +1141,28 @@ function playlevel5(){
 	}
 	function medamage(x0){
 		me.health-=x0;
-		if(me.health<=0)stop("\nLevel failed.\n\nR to try again.\nB to select a level.");
+		if(me.health<=0){
+			playsound(440,0,1);
+			stop("\nLevel failed.\n\nR to try again.\nB to select a level.");
+			// stop("\nLevel failed.\n\nR to try again.\nN to skip to next level.\nB to select a level.");
+		}
 	}
 	function bossdamage(x0){
 		boss.health-=x0;
-		if(boss.health<=0)stop("\nCongratulations!You beat the last level.\nHappy Mid-Autumn Festival!\n\nR to play again.\nB to select a level.");
+		if(boss.health<=0){
+			playsound(1000,1000,1);
+			stop("\nCongratulations!You beat the last level.\nHappy Mid-Autumn Festival!\n\nR to play again.\nB to select a level.");
+		}
 	}
 	function judgeshield(x0){
 		var i1=guiyi(x0.x-me.x,x0.y-me.y),i2=-Math.cos(me.ang),i3=-Math.sin(me.ang);
 		if(i1.x*i2+i1.y*i3>=Math.cos(Math.PI*(0.0625*me.shield))){
 			me.shield=(me.shield>2?me.shield-1:1);
+			playsound(440,880,0.2);
 			return true;
 		}else{
 			medamage(1);
+			playsound(880,660,0.2);
 			return false;
 		}
 	}
@@ -1158,6 +1222,7 @@ function playlevel5(){
 			if(clklist["KeyC"]){
 				bullets.push(newbullet(me.x,me.y,3*Math.cos(me.ang),3*Math.sin(me.ang),4,6,0));
 				me.cd=1;
+				playsound(660,880,0.1);
 			}
 		}
 		boss.cd-=0.03;
@@ -1165,22 +1230,23 @@ function playlevel5(){
 			let aimvec=turbulence(guiyi(me.x-boss.x,me.y-boss.y));
 			bullets.push(newbullet(boss.x,boss.y,aimvec.x*1.6,aimvec.y*1.6,3,6,1));
 			for(var foo=0;foo<4;++foo)bullets.push(newbullet(boss.x,boss.y,Math.cos((foo/2+0.25)*Math.PI)*1.3,Math.sin((foo/2+0.25)*Math.PI)*1.3,2,6,1));
-			// if(boss.health<=thre){
-			// 	for(var foo=0;foo<3;++foo){
-			// 		let bar=Math.random()*2*Math.PI;
-			// 		bullets.push(newbullet(boss.x,boss.y,Math.cos(bar),Math.sin(bar),1,6,1));
-			// 	}
-			// }
+			if(boss.health<=thre){
+				for(var foo=0;foo<1;++foo){
+					let bar=Math.random()*2*Math.PI;
+					bullets.push(newbullet(boss.x,boss.y,Math.cos(bar),Math.sin(bar),1,6,1));
+				}
+			}
 			boss.cd=1;
 		}
 		if(boss.health<=thre){
 			boss.cd2-=0.002;
 			boss.cd-=0.01;
 			if(boss.cd2<=0){
+				playsound(1320,440,0.3);
 				for(var foo=bullets.length-1;foo>=0;--foo){
 					if(bullets[foo].id!=1)continue;
-					let bar=guiyi(me.x-bullets[foo].x,me.y-bullets[foo].y);
-					bullets.push(newbullet(bullets[foo].x,bullets[foo].y,bar.x*0.6,bar.y*0.6,1,4,2));
+					let bar=guiyi(me.x-bullets[foo].x,me.y-bullets[foo].y),bar2=Math.random()*0.5+0.5;
+					bullets.push(newbullet(bullets[foo].x,bullets[foo].y,bar.x*bar2,bar.y*bar2,1,4,2));
 				}
 				boss.cd2=1;
 			}
