@@ -4,7 +4,11 @@
 <title>files</title>
 </head>
 <body>
-<a href="ex2019-2- 答题纸.pdf">ex2019-2- 答题纸.pdf</a>
-<a href="ex19b-3 - 答题纸.pdf">ex19b-3 - 答题纸.pdf</a>
+<script type="text/javascript">
+var names=`ex2019-2- 答题纸.pdf
+ex19b-3 - 答题纸.pdf
+index.htm`;
+document.body.innerHTML+=names.split('\n').map(x=>`<a href="${x}">${x}</a>`).join('<br>');
+</script>
 </body>
 </html>
